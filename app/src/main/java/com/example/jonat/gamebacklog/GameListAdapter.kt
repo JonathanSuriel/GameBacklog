@@ -15,7 +15,10 @@ class GameListAdapter internal constructor(
     private var games = emptyList<Game>() // Cached copy of games
 
     inner class GameViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val gameItemView: TextView = itemView.findViewById(R.id.textView)
+        val gameItemViewTitle: TextView = itemView.findViewById(R.id.textTitle)
+        val gameItemViewStatus: TextView = itemView.findViewById(R.id.textStatus)
+        val gameItemViewPlatform: TextView = itemView.findViewById(R.id.textPlatform)
+    //    val gameItemViewTitle: TextView = itemView.findViewById(R.id.textTitle)
 
     }
 
@@ -26,7 +29,9 @@ class GameListAdapter internal constructor(
 
     override fun onBindViewHolder(holder: GameViewHolder, position: Int) {
         val current = games[position]
-        holder.gameItemView.text = current.title
+        holder.gameItemViewTitle.text = current.title
+      //  holder.gameItemViewStatus.text = current.status.toString()
+    //    holder.gameItemViewPlatform.text = current.platform
     }
 
     internal fun setGames(games: List<Game>) {

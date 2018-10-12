@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
         if (requestCode == newGameActivityRequestCode && resultCode == Activity.RESULT_OK) {
             intentData?.let { data ->
-                val game = Game(data.getStringExtra(NewGameActivity.EXTRA_REPLY))
+                val game = Game(data.getStringExtra(NewGameActivity.EXTRA_REPLY))//,(NewGameActivity.EXTRA_REPLY),(NewGameActivity.EXTRA_REPLY),(Status.Want))
                 gameViewModel.insert(game)
             }
         } else {

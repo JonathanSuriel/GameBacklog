@@ -4,6 +4,7 @@ import android.arch.persistence.db.SupportSQLiteDatabase
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
+import android.arch.persistence.room.TypeConverters
 import android.content.Context
 import kotlinx.coroutines.experimental.CoroutineScope
 import kotlinx.coroutines.experimental.Dispatchers
@@ -11,6 +12,7 @@ import kotlinx.coroutines.experimental.IO
 import kotlinx.coroutines.experimental.launch
 
 @Database(entities = [Game::class], version = 1)
+@TypeConverters(Converters::class)
 abstract class GameDatabase : RoomDatabase() {
 
     abstract fun gameDao(): GameDao
@@ -71,9 +73,9 @@ abstract class GameDatabase : RoomDatabase() {
             gameDao.deleteAll()
 
            // var game = Game(1000, "Witcher 3", "PS4", "Plaayyy","Check")
-            var game = Game( "Witcher 3")
+            var game = Game( "Witcher 3")//, "PS4", "Test", Status.Dropped)
             gameDao.insert(game)
-            game = Game( "Witcher 322")
+            game = Game( "Witcher 322") //,"PS4", "Test", Status.Playing)
             gameDao.insert(game)
         }
     }
