@@ -11,7 +11,7 @@ import kotlinx.coroutines.experimental.Dispatchers
 import kotlinx.coroutines.experimental.IO
 import kotlinx.coroutines.experimental.launch
 
-@Database(entities = [Game::class], version = 1)
+@Database(entities = [Game::class], version = 5)
 @TypeConverters(Converters::class)
 abstract class GameDatabase : RoomDatabase() {
 
@@ -57,27 +57,13 @@ abstract class GameDatabase : RoomDatabase() {
                 // comment out the following line.
                 INSTANCE?.let { database ->
                     scope.launch(Dispatchers.IO) {
-                        populateDatabase(database.gameDao())
+
                     }
                 }
             }
         }
 
-        /**
-         * Populate the database in a new coroutine.
-         * If you want to start with more words, just add them.
-         */
-        fun populateDatabase(gameDao: GameDao) {
-            // Start the app with a clean database every time.
-            // Not needed if you only populate on creation.
-            gameDao.deleteAll()
 
-           // var game = Game(1000, "Witcher 3", "PS4", "Plaayyy","Check")
-            var game = Game( "Witcher 3")//, "PS4", "Test", Status.Dropped)
-            gameDao.insert(game)
-            game = Game( "Witcher 322") //,"PS4", "Test", Status.Playing)
-            gameDao.insert(game)
-        }
     }
 
 }

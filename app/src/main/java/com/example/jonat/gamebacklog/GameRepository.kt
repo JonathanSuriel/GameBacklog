@@ -11,4 +11,14 @@ import android.support.annotation.WorkerThread
         suspend fun insert(game: Game) {
             gameDao.insert(game)
         }
+
+        @WorkerThread
+        fun delete(game:Game){
+            gameDao.delete(game)
+        }
+
+        @WorkerThread
+        fun updateGame(game:Game){
+            gameDao.update(game)
+        }
     }

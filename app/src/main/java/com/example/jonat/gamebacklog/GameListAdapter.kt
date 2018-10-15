@@ -18,7 +18,7 @@ class GameListAdapter internal constructor(
         val gameItemViewTitle: TextView = itemView.findViewById(R.id.textTitle)
         val gameItemViewStatus: TextView = itemView.findViewById(R.id.textStatus)
         val gameItemViewPlatform: TextView = itemView.findViewById(R.id.textPlatform)
-    //    val gameItemViewTitle: TextView = itemView.findViewById(R.id.textTitle)
+        val gameItemViewDate: TextView = itemView.findViewById(R.id.textDate)
 
     }
 
@@ -30,8 +30,9 @@ class GameListAdapter internal constructor(
     override fun onBindViewHolder(holder: GameViewHolder, position: Int) {
         val current = games[position]
         holder.gameItemViewTitle.text = current.title
-      //  holder.gameItemViewStatus.text = current.status.toString()
-    //    holder.gameItemViewPlatform.text = current.platform
+        holder.gameItemViewStatus.text = current.status.toString()
+        holder.gameItemViewPlatform.text = current.platform
+        holder.gameItemViewDate.text = current.datum
     }
 
     internal fun setGames(games: List<Game>) {

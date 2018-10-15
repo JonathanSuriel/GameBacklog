@@ -11,11 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -51,22 +53,28 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity, NewGameActivity::class.java)
             startActivityForResult(intent, newGameActivityRequestCode)
         }
-    }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
-        super.onActivityResult(requestCode, resultCode, intentData)
 
-        if (requestCode == newGameActivityRequestCode && resultCode == Activity.RESULT_OK) {
-            intentData?.let { data ->
-                val game = Game(data.getStringExtra(NewGameActivity.EXTRA_REPLY))//,(NewGameActivity.EXTRA_REPLY),(NewGameActivity.EXTRA_REPLY),(Status.Want))
-                gameViewModel.insert(game)
+        val simpleItemTouchCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+                return false
             }
-        } else {
-            Toast.makeText(
-                applicationContext,
-                "Not saved",
-                Toast.LENGTH_LONG
-            ).show()
+
+            //Called when a user swipes left or right on a ViewHolder
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
+
+                //Get the index corresponding to the selected position
+                val position = viewHolder.adapterPosition
+                gameViewModel.delete(gameViewModel.allGames.value!![position!!])
+                adapter.notifyItemRemoved(position)
+            }
         }
+
+        val itemTouchHelper = ItemTouchHelper(simpleItemTouchCallback)
+        itemTouchHelper.attachToRecyclerView(RecyclerView(this))
     }
+
+
+
+
 }
